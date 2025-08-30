@@ -1,20 +1,13 @@
 ﻿using Enums;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class Obstacle : MonoBehaviour
 {
-    private Rigidbody _rigidbody;
     private float _speed;
     private RoadSide _moveDirection;
     private bool _isMoving;
 
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody>();
-    }
-
-    private void FixedUpdate()
+    private void Update()
     {
         if (!_isMoving)
             return;
@@ -22,14 +15,11 @@ public class Obstacle : MonoBehaviour
         Move();
     }
 
-    public void Initialize(RoadSide moveDirection, float speed, Vector3 spawnPosition)
+    public void Initialize(RoadSide moveDirection, float speed)
     {
         _speed = speed;
         _moveDirection = moveDirection;
         _isMoving = true;
-        
-        transform.localPosition = spawnPosition;
-        _rigidbody.position = spawnPosition;
     }
     
     public void ResetObstacle()
@@ -41,15 +31,15 @@ public class Obstacle : MonoBehaviour
     private void Move()
     {
         var direction = _moveDirection == RoadSide.Left ? 1f : -1f;
-        var movement = transform.forward * direction * _speed * Time.fixedDeltaTime;
-        _rigidbody.MovePosition(_rigidbody.position + movement);
+        var movement = transform.forward * direction * _speed * Time.deltaTime;
+        transform.Translate(movement, Space.World);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other.TryGetComponent<PlayerController>(out var player))
         {
-            Debug.Log("Player entered");
+            player.Crash();
         }
     }
 }

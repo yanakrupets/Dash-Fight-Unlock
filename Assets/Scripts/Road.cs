@@ -2,7 +2,6 @@
 using Enums;
 using Interfaces;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 public class Road : MonoBehaviour
@@ -67,7 +66,8 @@ public class Road : MonoBehaviour
     {
         var obstacle = _pool.Get();
         obstacle.transform.SetParent(transform);
-        obstacle.Initialize(_roadSide, _speed, _spawnPoint);
+        obstacle.transform.localPosition = _spawnPoint;
+        obstacle.Initialize(_roadSide, _speed);
     }
     
     private float GetRandomSpawnDelay()
