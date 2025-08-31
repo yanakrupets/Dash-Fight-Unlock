@@ -28,10 +28,10 @@ public class PlayerInputController : MonoBehaviour
         switch (newState)
         {
             case GameState.Dash:
-                playerInput.SwitchCurrentActionMap("Dash");
+                playerInput.SwitchCurrentActionMap(Consts.DashMap);
                 break;
             case GameState.Fight:
-                playerInput.SwitchCurrentActionMap("Fight");
+                playerInput.SwitchCurrentActionMap(Consts.FightMap);
                 break;
             case GameState.Unlock:
                 break;

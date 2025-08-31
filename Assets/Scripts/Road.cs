@@ -11,18 +11,19 @@ public class Road : MonoBehaviour
     [SerializeField] private Vector3 leftPoint;
     [SerializeField] private Vector3 rightPoint;
     
-    [SerializeField] private Vector2 delayBetweenObstacles;
+    [SerializeField] private Vector2 delayBetweenObstacles = new(1f, 3f);
 
+    private IPool<Obstacle> _obstaclePool;
+    
     private float _speed;
     private Vector3 _spawnPoint;
     private RoadSide _roadSide;
     private Coroutine _spawnCoroutine;
-    private IPool<Obstacle> _pool;
 
     [Inject]
-    public void Construct(IPool<Obstacle> pool)
+    public void Construct(IPool<Obstacle> obstaclePool)
     {
-        _pool = pool;
+        _obstaclePool = obstaclePool;
     }
     
     public class Factory : PlaceholderFactory<Road> { }
@@ -64,7 +65,7 @@ public class Road : MonoBehaviour
     
     private void SpawnObstacle()
     {
-        var obstacle = _pool.Get();
+        var obstacle = _obstaclePool.Get();
         obstacle.transform.SetParent(transform);
         obstacle.transform.localPosition = _spawnPoint;
         obstacle.Initialize(_roadSide, _speed);

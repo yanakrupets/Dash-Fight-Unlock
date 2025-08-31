@@ -1,5 +1,7 @@
 ﻿using Enums;
+using Interfaces;
 using UnityEngine;
+using Zenject;
 
 public class Obstacle : MonoBehaviour
 {
@@ -33,13 +35,5 @@ public class Obstacle : MonoBehaviour
         var direction = _moveDirection == RoadSide.Left ? 1f : -1f;
         var movement = transform.forward * direction * _speed * Time.deltaTime;
         transform.Translate(movement, Space.World);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") && other.TryGetComponent<PlayerController>(out var player))
-        {
-            player.Crash();
-        }
     }
 }

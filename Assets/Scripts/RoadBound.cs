@@ -4,12 +4,12 @@ using Zenject;
 
 public class RoadBound : MonoBehaviour
 {
-    private IPool<Obstacle> _pool;
+    private IPool<Obstacle> _obstaclePool;
     
     [Inject]
-    public void Construct(IPool<Obstacle> pool)
+    public void Construct(IPool<Obstacle> obstaclePool)
     {
-        _pool = pool;
+        _obstaclePool = obstaclePool;
     }
     
     public void SetPosition(Vector3 position)
@@ -19,9 +19,9 @@ public class RoadBound : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle") && other.TryGetComponent<Obstacle>(out var obstacle))
+        if (other.CompareTag(Consts.Obstacle) && other.TryGetComponent<Obstacle>(out var obstacle))
         {
-            _pool.Return(obstacle);
+            _obstaclePool.Return(obstacle);
         }
     }
 }

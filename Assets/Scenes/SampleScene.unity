@@ -352,7 +352,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Installers.GameInstaller
   obstaclePoolPrefab: {fileID: 3795386661891777068, guid: aaf6838879a3ad84ab5a6f81f0ce6d23, type: 3}
+  bulletPoolPrefab: {fileID: 5384265443593275094, guid: 34a4412a8d5deac4a944c2a258cc9d0d, type: 3}
   roadPrefab: {fileID: 4136832440375969793, guid: e12b9f44f056ff542afe814814aa2a4a, type: 3}
+  fightZonePrefab: {fileID: 2942768170944159492, guid: 54ccc09dc570f8b48bfab3097ef735d4, type: 3}
+  enemyPrefab: {fileID: 4718706636324292069, guid: 758989308a2a65349bcea42280306f07, type: 3}
+  bulletPrefab: {fileID: 2055200367589284564, guid: 67ce613eee44cb64a9197a750d061916, type: 3}
+  levelGeneratorPrefab: {fileID: 4593676422596275270, guid: 0df4cef393909b34c8dce862c1f749cf, type: 3}
 --- !u!1 &314380266
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,7 +631,7 @@ GameObject:
   - component: {fileID: 900332205}
   - component: {fileID: 900332204}
   m_Layer: 0
-  m_Name: Road Controller
+  m_Name: Game Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -644,11 +649,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dcfe085d3df32b44ad6b33665d6fe2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoadController
-  roadsCount: 3
-  speedRange: {x: 4, y: 6}
-  roadWidth: 1
-  safeZoneChance: 0.3
-  safeZonePrefab: {fileID: 7544501920004293880, guid: 3ef1d0da80222b54aac231ed54bc2fbc, type: 3}
 --- !u!4 &900332205
 Transform:
   m_ObjectHideFlags: 0
@@ -765,10 +765,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1004014216}
-  - component: {fileID: 1004014213}
   - component: {fileID: 1004014219}
+  - component: {fileID: 1004014223}
   - component: {fileID: 1004014217}
   - component: {fileID: 1004014220}
+  - component: {fileID: 1004014213}
+  - component: {fileID: 1004014222}
+  - component: {fileID: 1004014221}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -811,6 +814,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 314380267}
+  - {fileID: 1821124253}
   - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -842,7 +846,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 148739dc3e264dd59ccdba578447f6f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  damageable: {fileID: 1004014223}
   graphic: {fileID: 314380267}
+  shooter: {fileID: 1821124254}
 --- !u!114 &1004014220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -858,6 +864,146 @@ MonoBehaviour:
   holdAction: {fileID: 3214239271257472638, guid: 6ae05d7638f5bef44815e1c60c13eb39, type: 3}
   touchPositionAction: {fileID: -25398847430784310, guid: 6ae05d7638f5bef44815e1c60c13eb39, type: 3}
   movementSpeed: 5
+  minZBound: -3
+  maxZBound: 3
+--- !u!54 &1004014221
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004014212}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!65 &1004014222
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004014212}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1004014223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004014212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bca9abde27d4fb6b56f52911f0f1ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  healthPoints: 4
+--- !u!4 &1821124253 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 828979773178595077, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
+  m_PrefabInstance: {fileID: 8145881218278358350}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1821124254 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6633979988306466987, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
+  m_PrefabInstance: {fileID: 8145881218278358350}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5a0c2ec471e44ad827f167f61a4feeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shooter
+--- !u!1001 &8145881218278358350
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1004014216}
+    m_Modifications:
+    - target: {fileID: 828979773178595077, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 828979773178595077, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 828979773178595077, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 828979773178595077, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 828979773178595077, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 828979773178595077, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 828979773178595077, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 828979773178595077, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 828979773178595077, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 828979773178595077, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251136635517170261, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
+      propertyPath: m_Name
+      value: Shooter
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633979988306466987, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
+      propertyPath: material
+      value: 
+      objectReference: {fileID: 2100000, guid: 72d709927b3395a449cd0b2358714eda, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b77045a01be6b9f43845f17e4fd0b812, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

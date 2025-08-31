@@ -8,7 +8,9 @@ public class FightMovement : MonoBehaviour
     [SerializeField] private InputActionReference touchPositionAction;
     
     [Header("Movement Settings")]
-    [SerializeField] private float movementSpeed;
+    [SerializeField] private float movementSpeed = 5f;
+    [SerializeField] private float minZBound = -3f;
+    [SerializeField] private float maxZBound = 3f;
     
     private Vector2 _touchPosition;
     private bool _isHolding;
@@ -45,7 +47,11 @@ public class FightMovement : MonoBehaviour
     private void Update()
     {
         if (!_isHolding) return;
-        var normalizedX = 1 - _touchPosition.x / Screen.width * 2;
-        transform.Translate(Vector3.forward * normalizedX * movementSpeed * Time.deltaTime);
+        var normalizedX = 1 - (_touchPosition.x / Screen.width) * 2;
+        var movement = normalizedX * movementSpeed * Time.deltaTime;
+
+        var targetZ = Mathf.Clamp(transform.localPosition.z + movement, minZBound, maxZBound);
+    
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, targetZ);
     }
 }

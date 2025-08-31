@@ -6,13 +6,13 @@ namespace Pools
 {
     public abstract class BasePool<T> : MonoBehaviour, IPool<T> where T : MonoBehaviour
     {
-        protected readonly Queue<T> Pool = new();
+        private readonly Queue<T> _pool = new();
     
         public virtual T Get()
         {
-            var item = Pool.Count == 0
+            var item = _pool.Count == 0
                 ? Create()
-                : Pool.Dequeue();
+                : _pool.Dequeue();
             
             item.gameObject.SetActive(true);
             return item;
@@ -21,7 +21,7 @@ namespace Pools
         public virtual void Return(T obj)
         {
             obj.gameObject.SetActive(false);
-            Pool.Enqueue(obj);
+            _pool.Enqueue(obj);
             obj.transform.SetParent(transform);
         }
 

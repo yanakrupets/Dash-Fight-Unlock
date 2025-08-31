@@ -5,7 +5,7 @@ public class GameStateManager
 {
     public event Action<GameState> OnGameStateChanged;
 
-    private GameState CurrentState { get; set; }
+    public GameState CurrentState { get; private set; }
 
     public void SetState(GameState state)
     {
