@@ -1,8 +1,8 @@
-using Enums;
+﻿using Enums;
 using UnityEngine;
 using Zenject;
 
-public class GameController : MonoBehaviour
+public class FightController : MonoBehaviour
 {
     private GameStateManager _gameStateManager;
     private LevelGenerator _levelGenerator;
@@ -14,8 +14,7 @@ public class GameController : MonoBehaviour
         _levelGenerator = levelGenerator;
         
         _gameStateManager.OnGameStateChanged += HandleGameStateChange;
-        
-        _levelGenerator.GenerateLevel();
+        _levelGenerator.FightZone.OnFightWon += HandleFightWon;
     }
     
     private void OnDestroy()
@@ -28,36 +27,19 @@ public class GameController : MonoBehaviour
     {
         switch (newState)
         {
-            case GameState.Dash:
-                StartAllRoadsObstaclesMovement();
-                break;
             case GameState.Fight:
-                StopAllRoadsObstaclesMovement();
                 StartFight();
                 break;
-            case GameState.Unlock:
-                break;
-        }
-    }
-
-    private void StartAllRoadsObstaclesMovement()
-    {
-        foreach (var road in _levelGenerator.Roads)
-        {
-            road.StartObstaclesMovement();
-        }
-    }
-
-    private void StopAllRoadsObstaclesMovement()
-    {
-        foreach (var road in _levelGenerator.Roads)
-        {
-            road.StopObstaclesMovement();
         }
     }
 
     private void StartFight()
     {
         _levelGenerator.FightZone.GenerateEnemies();
+    }
+
+    private void HandleFightWon()
+    {
+        _gameStateManager.SetState(GameState.Chest);
     }
 }

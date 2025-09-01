@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2334613298137734300}
+  - component: {fileID: 9127325545740023994}
   - component: {fileID: 1336620747951272059}
   - component: {fileID: 20813069446913545}
-  - component: {fileID: 9127325545740023994}
   - component: {fileID: 3197937677589899264}
   - component: {fileID: 7592432347500013941}
   m_Layer: 0
@@ -36,6 +36,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9127325545740023994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5604601879122047382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab5a8939825947feaf2958e154b3d209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Obstacle
 --- !u!33 &1336620747951272059
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -92,18 +104,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &9127325545740023994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5604601879122047382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab5a8939825947feaf2958e154b3d209, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Obstacle
 --- !u!65 &3197937677589899264
 BoxCollider:
   m_ObjectHideFlags: 0

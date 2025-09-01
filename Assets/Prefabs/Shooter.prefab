@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shooter
   shootCooldown: 0.5
+  material: {fileID: 2100000, guid: 8e0cee903e77f6d4fb4f7a536b26d1a0, type: 2}

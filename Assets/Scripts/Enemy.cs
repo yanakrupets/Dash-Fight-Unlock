@@ -8,17 +8,19 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Damageable damageable;
     [SerializeField] private EnemyMovement movement;
     [SerializeField] private Shooter shooter;
+    
+    public event Action<Enemy> OnDeath;
 
     public class Factory : PlaceholderFactory<Enemy> { }
 
     private void OnEnable()
     {
-        damageable.OnDeath += OnDeath;
+        damageable.OnDeath += HandleDeath;
     }
 
     private void OnDisable()
     {
-        damageable.OnDeath -= OnDeath;
+        damageable.OnDeath -= HandleDeath;
     }
 
     public void Initialize(EnemyMovementData data)
@@ -28,10 +30,13 @@ public class Enemy : MonoBehaviour
         shooter.EnableShooting(true);
     }
 
-    private void OnDeath()
+    private void HandleDeath()
     {
         movement.Enablemovement(false);
         shooter.EnableShooting(false);
+        
+        OnDeath?.Invoke(this);
+        
         Destroy(gameObject);
     }
     

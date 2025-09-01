@@ -34,6 +34,7 @@ public class PlayerInputController : MonoBehaviour
                 playerInput.SwitchCurrentActionMap(Consts.FightMap);
                 break;
             case GameState.Unlock:
+                playerInput.DeactivateInput();
                 break;
         }
     }

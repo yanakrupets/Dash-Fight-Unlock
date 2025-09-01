@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour
         transform.position += _direction * speed * Time.deltaTime;
     }
     
-    public void StopMovement()
+    public void ResetBullet()
     {
         _isActive = false;
     }

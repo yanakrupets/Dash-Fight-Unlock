@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
             case GameState.Fight:
                 shooter.EnableShooting(true);
                 break;
+            case GameState.Chest:
             case GameState.Unlock:
                 shooter.EnableShooting(false);
                 break;

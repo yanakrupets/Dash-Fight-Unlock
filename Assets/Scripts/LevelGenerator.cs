@@ -31,9 +31,11 @@ public class LevelGenerator : MonoBehaviour
     {
         _roadFactory = roadFactory;
         _fightZoneFactory = fightZoneFactory;
+        
+        GenerateLevel();
     }
 
-    public void GenerateLevel()
+    private void GenerateLevel()
     {
         GenerateRoads();
         GenerateFightZone();

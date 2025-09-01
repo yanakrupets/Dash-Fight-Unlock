@@ -16,7 +16,7 @@ namespace Pools
         public override void Return(Bullet obj)
         {
             base.Return(obj);
-            obj.StopMovement();
+            obj.ResetBullet();
         }
 
         protected override Bullet Create()

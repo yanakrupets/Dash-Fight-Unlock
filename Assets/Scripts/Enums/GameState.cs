@@ -5,7 +5,8 @@
         None = 0,
         Dash = 1,
         Fight = 2,
-        Unlock = 3
+        Chest = 3,
+        Unlock = 4
     }
 }
  
