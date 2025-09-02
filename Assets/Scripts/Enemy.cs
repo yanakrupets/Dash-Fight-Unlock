@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 public class Enemy : MonoBehaviour

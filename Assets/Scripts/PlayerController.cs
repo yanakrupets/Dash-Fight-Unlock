@@ -1,6 +1,5 @@
 ﻿using Enums;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 public class PlayerController : MonoBehaviour
@@ -33,14 +32,10 @@ public class PlayerController : MonoBehaviour
     {
         switch (newState)
         {
-            case GameState.Dash:
-                shooter.EnableShooting(false);
-                break;
             case GameState.Fight:
                 shooter.EnableShooting(true);
                 break;
-            case GameState.Chest:
-            case GameState.Unlock:
+            default:
                 shooter.EnableShooting(false);
                 break;
         }
@@ -72,7 +67,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
         
-        // game state on reload
+        // game state on lose
         RestartGame();
     }
     

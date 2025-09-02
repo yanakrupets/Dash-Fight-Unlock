@@ -20,6 +20,9 @@ namespace Installers
         [Space]
         [SerializeField] private LevelGenerator levelGeneratorPrefab;
         
+        [Space]
+        [SerializeField] private ColorData[] colorData;
+        
         public override void InstallBindings()
         {
             Container.Bind<GameStateManager>()
@@ -28,6 +31,11 @@ namespace Installers
 
             Container.Bind<LevelGenerator>()
                 .FromComponentInNewPrefab(levelGeneratorPrefab)
+                .AsSingle()
+                .NonLazy();
+            
+            Container.Bind<ColorManager>()
+                .FromMethod(_ => new ColorManager(colorData))
                 .AsSingle()
                 .NonLazy();
             

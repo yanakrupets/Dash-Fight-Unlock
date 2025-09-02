@@ -6,7 +6,9 @@
         Dash = 1,
         Fight = 2,
         Chest = 3,
-        Unlock = 4
+        Unlock = 4,
+        Win = 5,
+        Lose = 6,
     }
 }
  

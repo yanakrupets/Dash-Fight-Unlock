@@ -6,6 +6,8 @@ public class DashController : MonoBehaviour
 {
     private GameStateManager _gameStateManager;
     private LevelGenerator _levelGenerator;
+
+    private bool _isObstaclesMoving;
     
     [Inject]
     public void Construct(GameStateManager gameStateManager, LevelGenerator levelGenerator)
@@ -29,7 +31,7 @@ public class DashController : MonoBehaviour
             case GameState.Dash:
                 StartAllRoadsObstaclesMovement();
                 break;
-            case GameState.Fight:
+            default:
                 StopAllRoadsObstaclesMovement();
                 break;
         }
@@ -37,6 +39,10 @@ public class DashController : MonoBehaviour
 
     private void StartAllRoadsObstaclesMovement()
     {
+        if (_isObstaclesMoving)
+            return;
+        
+        _isObstaclesMoving = true;
         foreach (var road in _levelGenerator.Roads)
         {
             road.StartObstaclesMovement();
@@ -45,6 +51,10 @@ public class DashController : MonoBehaviour
 
     private void StopAllRoadsObstaclesMovement()
     {
+        if (!_isObstaclesMoving)
+            return;
+        
+        _isObstaclesMoving = false;
         foreach (var road in _levelGenerator.Roads)
         {
             road.StopObstaclesMovement();

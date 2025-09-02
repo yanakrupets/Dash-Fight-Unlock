@@ -1,7 +1,5 @@
 ﻿using Enums;
-using Interfaces;
 using UnityEngine;
-using Zenject;
 
 public class Obstacle : MonoBehaviour
 {
