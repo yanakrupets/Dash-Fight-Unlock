@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
 
 namespace UI
@@ -10,6 +11,8 @@ namespace UI
         [SerializeField] private int gridSize = 6;
         
         private ColorManager _colorManager;
+        
+        private readonly List<KeyCell> _keyCells = new();
 
         [Inject]
         private void Construct(ColorManager colorManager)
@@ -23,6 +26,14 @@ namespace UI
             var data = GenerateTotalColorData(requiredColors, totalKeysCount);
 
             GenerateKeys(data);
+        }
+
+        public void ResetGrid()
+        {
+            foreach (var keyCell in _keyCells)
+            {
+                Destroy(keyCell.gameObject);
+            }
         }
 
         private ColorData[] GenerateTotalColorData(ColorData[] requiredColors, int totalKeysCount)
@@ -64,6 +75,8 @@ namespace UI
                 
                 var keyCell = Instantiate(keyCellPrefab, transform);
                 keyCell.SetKey(key);
+                
+                _keyCells.Add(keyCell);
             }
         }
     }

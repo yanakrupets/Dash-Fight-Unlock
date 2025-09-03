@@ -7,6 +7,10 @@ namespace Installers
 {
     public class GameInstaller : MonoInstaller
     {
+        [Header("Controllers")]
+        //[SerializeField] private PlayerController playerController;
+        //[SerializeField] private FightModeController fightModeController;
+        
         [Header("Pools")]
         [SerializeField] private ObstaclePool obstaclePoolPrefab;
         [SerializeField] private BulletPool bulletPoolPrefab;
@@ -25,22 +29,35 @@ namespace Installers
         
         public override void InstallBindings()
         {
+            ControllersAndManagersBindings();
+            PoolBindings();
+            FactoryBindings();
+        }
+
+        private void ControllersAndManagersBindings()
+        {
             Container.Bind<GameStateManager>()
                 .AsSingle()
                 .NonLazy();
+
+            Container.Bind<ColorManager>()
+                .FromMethod(_ => new ColorManager(colorData))
+                .AsSingle();
 
             Container.Bind<LevelGenerator>()
                 .FromComponentInNewPrefab(levelGeneratorPrefab)
                 .AsSingle()
                 .NonLazy();
             
-            Container.Bind<ColorManager>()
-                .FromMethod(_ => new ColorManager(colorData))
-                .AsSingle()
-                .NonLazy();
-            
-            PoolBindings();
-            FactoryBindings();
+            // Container.Bind<PlayerController>()
+            //     .FromInstance(playerController)
+            //     .AsSingle()
+            //     .NonLazy();
+            //
+            // Container.Bind<FightModeController>()
+            //     .FromInstance(fightModeController)
+            //     .AsSingle()
+            //     .NonLazy();
         }
 
         private void PoolBindings()

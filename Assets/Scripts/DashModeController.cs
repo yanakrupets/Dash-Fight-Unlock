@@ -2,7 +2,7 @@ using Enums;
 using UnityEngine;
 using Zenject;
 
-public class DashController : MonoBehaviour
+public class DashModeController : MonoBehaviour
 {
     private GameStateManager _gameStateManager;
     private LevelGenerator _levelGenerator;

@@ -8,7 +8,8 @@
         Chest = 3,
         Unlock = 4,
         Win = 5,
-        Lose = 6,
+        Restart = 6,
+        Crashed = 7,
     }
 }
  

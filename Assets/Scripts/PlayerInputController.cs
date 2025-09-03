@@ -31,9 +31,10 @@ public class PlayerInputController : MonoBehaviour
                 playerInput.SwitchCurrentActionMap(Consts.DashMap);
                 break;
             case GameState.Fight:
+            case GameState.Chest:
                 playerInput.SwitchCurrentActionMap(Consts.FightMap);
                 break;
-            case GameState.Unlock:
+            default:
                 playerInput.DeactivateInput();
                 break;
         }

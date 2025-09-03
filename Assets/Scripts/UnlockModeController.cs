@@ -1,9 +1,10 @@
-﻿using Enums;
+﻿using System;
+using Enums;
 using UI;
 using UnityEngine;
 using Zenject;
 
-public class UnlockController : MonoBehaviour
+public class UnlockModeController : MonoBehaviour
 {
     [SerializeField] private int keysCountToUnlock = 3;
     [SerializeField] private CanvasView unlockCanvas;
@@ -30,6 +31,7 @@ public class UnlockController : MonoBehaviour
     
     private void HandleGameStateChange(GameState newState)
     {
+        //Debug.Log("Unlock Mode " + newState);
         switch (newState)
         {
             case GameState.Unlock:
@@ -44,8 +46,15 @@ public class UnlockController : MonoBehaviour
 
     private void Generate()
     {
+        ResetUnlock();
+        
         var currentSessionColors = _colorManager.GetRandomColors(keysCountToUnlock, true);
         lockItem.Initialize(currentSessionColors);
         keyGrid.Initialize(currentSessionColors);
+    }
+
+    private void ResetUnlock()
+    {
+        keyGrid.ResetGrid();
     }
 }

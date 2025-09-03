@@ -24,12 +24,7 @@ public class FightZone : MonoBehaviour
 
     private void OnDestroy()
     {
-        foreach (var enemy in _enemies)
-        {
-            enemy.OnDeath -= HandleEnemyDeath;
-        }
-        
-        _enemies.Clear();
+        ResetEnemies();
     }
 
     public void GenerateEnemies()
@@ -45,6 +40,12 @@ public class FightZone : MonoBehaviour
             _enemies.Add(enemy);
         }
     }
+
+    public void ResetFightZone()
+    {
+        chest.Hide();
+        ResetEnemies();
+    }
     
     private void HandleEnemyDeath(Enemy enemy)
     {
@@ -56,5 +57,16 @@ public class FightZone : MonoBehaviour
             chest.Show();
             OnFightWon?.Invoke();
         }
+    }
+
+    private void ResetEnemies()
+    {
+        foreach (var enemy in _enemies)
+        {
+            enemy.OnDeath -= HandleEnemyDeath;
+            Destroy(enemy.gameObject);
+        }
+        
+        _enemies.Clear();
     }
 }

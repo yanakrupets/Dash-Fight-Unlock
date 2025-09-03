@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
         movement.Initialize(data);
         movement.Enablemovement(true);
         shooter.EnableShooting(true);
+        damageable.ResetHealthPoints();
     }
 
     private void HandleDeath()

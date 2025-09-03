@@ -1,5 +1,6 @@
 ﻿using System;
 using Enums;
+using UnityEngine;
 
 public class GameStateManager
 {
@@ -11,5 +12,10 @@ public class GameStateManager
     {
         CurrentState = state;
         OnGameStateChanged?.Invoke(CurrentState);
+    }
+
+    public void RestartGame()
+    {
+        SetState(GameState.Dash);
     }
 }

@@ -65,7 +65,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.5, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7014193426624975617
 Rigidbody:
@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d35dd53d48d479185336f26d837a6e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FightZone
+  chest: {fileID: 6465515176485537067}
   movementData:
   - pointA: {x: 5, y: 1, z: -2.2}
     pointB: {x: 5, y: 1, z: -1.2}
@@ -150,7 +151,6 @@ MonoBehaviour:
   - pointA: {x: 4, y: 1, z: 2.2}
     pointB: {x: 4, y: 1, z: 1.2}
     speed: 1
-  chest: {fileID: 6465515176485537067}
 --- !u!1 &7534335745826161405
 GameObject:
   m_ObjectHideFlags: 0

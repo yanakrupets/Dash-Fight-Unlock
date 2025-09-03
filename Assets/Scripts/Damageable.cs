@@ -10,11 +10,6 @@ public class Damageable : MonoBehaviour
     public event Action OnDeath;
 
     private bool IsAlive => _currentHealthPoints > 0;
-
-    private void Awake()
-    {
-        _currentHealthPoints = healthPoints;
-    }
     
     public void TakeDamage(int damage)
     {
@@ -31,5 +26,10 @@ public class Damageable : MonoBehaviour
     {
         _currentHealthPoints = 0;
         OnDeath?.Invoke();
+    }
+
+    public void ResetHealthPoints()
+    {
+        _currentHealthPoints = healthPoints;
     }
 }

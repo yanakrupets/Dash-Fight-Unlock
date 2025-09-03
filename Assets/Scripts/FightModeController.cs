@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-public class FightController : MonoBehaviour
+public class FightModeController : MonoBehaviour
 {
     private GameStateManager _gameStateManager;
     private LevelGenerator _levelGenerator;
@@ -30,12 +30,22 @@ public class FightController : MonoBehaviour
             case GameState.Fight:
                 StartFight();
                 break;
+            case GameState.Chest:
+                break;
+            default:
+                ResetFightZone();
+                break;
         }
     }
 
     private void StartFight()
     {
         _levelGenerator.FightZone.GenerateEnemies();
+    }
+
+    private void ResetFightZone()
+    {
+        _levelGenerator.FightZone.ResetFightZone();
     }
 
     private void HandleFightWon()

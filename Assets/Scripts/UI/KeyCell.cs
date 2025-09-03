@@ -11,5 +11,11 @@ namespace UI
             _key = key;
             _key.transform.SetParent(transform, false);
         }
+
+        public void Destroy()
+        {
+            Destroy(_key);
+            Destroy(gameObject);
+        }
     }
 }
