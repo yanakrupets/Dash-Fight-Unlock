@@ -10,6 +10,7 @@ public class Damageable : MonoBehaviour
     public event Action OnDeath;
 
     private bool IsAlive => _currentHealthPoints > 0;
+    public int HealthPoints => healthPoints;
     
     public void TakeDamage(int damage)
     {

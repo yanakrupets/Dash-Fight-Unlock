@@ -22,6 +22,8 @@ namespace UI
             _colorType = colorData.type;
             keyImage.color = colorData.color;
             
+            canvasGroup.blocksRaycasts = true;
+            
             gameObject.SetActive(true);
         }
         

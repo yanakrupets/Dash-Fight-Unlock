@@ -1,10 +1,12 @@
 ﻿using System;
+using UI;
 using UnityEngine;
 using Zenject;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private Damageable damageable;
+    [SerializeField] private HealthBar healthBar;
     [SerializeField] private EnemyMovement movement;
     [SerializeField] private Shooter shooter;
     
@@ -25,9 +27,12 @@ public class Enemy : MonoBehaviour
     public void Initialize(EnemyMovementData data)
     {
         movement.Initialize(data);
+        
         movement.Enablemovement(true);
         shooter.EnableShooting(true);
+        
         damageable.ResetHealthPoints();
+        healthBar.Initialize(damageable.HealthPoints);
     }
 
     private void HandleDeath()
@@ -45,6 +50,7 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag(Consts.Bullet) && other.TryGetComponent<Bullet>(out var bullet))
         {
             damageable.TakeDamage(bullet.Damage);
+            healthBar.UpdateHealthBar(bullet.Damage);
         }
     }
 }

@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using Enums;
+using UI;
 using UnityEngine;
 using Zenject;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private CanvasView healthBarCanvas;
+    [SerializeField] private HealthBar healthBar;
     [SerializeField] private Damageable damageable;
     [SerializeField] private Transform graphic;
     [SerializeField] private Shooter shooter;
@@ -38,6 +41,7 @@ public class PlayerController : MonoBehaviour
             _originalGraphicPosition.z);
         
         damageable.ResetHealthPoints();
+        healthBar.Initialize(damageable.HealthPoints);
         
         _gameStateManager.OnGameStateChanged += HandleGameStateChange;
         damageable.OnDeath += OnDeath;
@@ -60,9 +64,12 @@ public class PlayerController : MonoBehaviour
                 break;
             case GameState.Fight:
                 shooter.EnableShooting(true);
+                healthBar.Initialize(damageable.HealthPoints);
+                healthBarCanvas.Show();
                 break;
             default:
                 shooter.EnableShooting(false);
+                healthBarCanvas.Hide();
                 break;
         }
     }
@@ -109,6 +116,7 @@ public class PlayerController : MonoBehaviour
         transform.position = _originalPosition;
         shooter.EnableShooting(false);
         damageable.ResetHealthPoints();
+        healthBarCanvas.Hide();
     }
     
     private void OnTriggerEnter(Collider other)
@@ -116,6 +124,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag(Consts.Bullet) && other.TryGetComponent<Bullet>(out var bullet))
         {
             damageable.TakeDamage(bullet.Damage);
+            healthBar.UpdateHealthBar(bullet.Damage);
         }
 
         if (other.CompareTag(Consts.Obstacle))

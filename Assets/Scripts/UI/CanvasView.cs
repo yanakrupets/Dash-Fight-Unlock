@@ -13,7 +13,6 @@ namespace UI
         {
             _canvas = GetComponent<Canvas>();
             _raycaster = GetComponent<GraphicRaycaster>();
-            Hide();
         }
 
         public void Show()
