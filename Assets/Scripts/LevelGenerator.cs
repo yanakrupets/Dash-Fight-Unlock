@@ -20,8 +20,9 @@ public class LevelGenerator : MonoBehaviour
     
     private Road.Factory _roadFactory;
     private FightZone.Factory _fightZoneFactory;
-    
-    private float _currentX;
+
+    private float _currentPositionX;
+    private readonly List<GameObject> _safeZones = new();
 
     public List<Road> Roads { get; } = new();
     public FightZone FightZone { get; private set; }
@@ -34,6 +35,12 @@ public class LevelGenerator : MonoBehaviour
         
         GenerateLevel();
     }
+    
+    public void ResetLevel()
+    {
+        ResetRoads();
+        UpdateFightZonePosition();
+    }
 
     private void GenerateLevel()
     {
@@ -43,29 +50,64 @@ public class LevelGenerator : MonoBehaviour
     
     private void GenerateRoads()
     {
-        for (var i = 0; i < roadsCount; i++)
+        for (var i = 0; i < roadsCount; i++, _currentPositionX += roadWidth)
         {
             var road = _roadFactory.Create();
             road.transform.SetParent(transform);
-            road.transform.localPosition = new Vector3(_currentX, 0f, 0f);
-            road.Initialize(GetRandomSpeed(), GetRandomSide());
+            road.transform.localPosition = new Vector3(_currentPositionX, 0f, 0f);
             Roads.Add(road);
-
-            _currentX += roadWidth;
+        }
+    }
+    
+    private void ResetRoads()
+    {
+        ClearSafeZones();
+        
+        _currentPositionX = 0f;
+        
+        for (var i = 0; i < roadsCount; i++)
+        {
+            var road = Roads[i];
+            road.transform.localPosition = new Vector3(_currentPositionX, 0f, 0f);
+            road.Initialize(GetRandomSpeed(), GetRandomSide());
+            
+            _currentPositionX += roadWidth;
 
             if (i < roadsCount - 1 && Random.value < safeZoneChance)
             {
-                Instantiate(safeZonePrefab, new Vector3(_currentX, 0f, 0f), Quaternion.identity, transform);
-                _currentX += roadWidth;
+                GenerateSafeZone();
+                _currentPositionX += roadWidth;
             }
         }
+    }
+
+    private void GenerateSafeZone()
+    {
+        var safeZone = Instantiate(safeZonePrefab, transform);
+        safeZone.transform.localPosition = new Vector3(_currentPositionX, 0f, 0f);
+        _safeZones.Add(safeZone);
     }
     
     private void GenerateFightZone()
     {
         FightZone = _fightZoneFactory.Create();
         FightZone.transform.SetParent(transform);
-        FightZone.transform.localPosition = new Vector3(_currentX, 0f, 0f);
+        FightZone.transform.localPosition = new Vector3(_currentPositionX, 0f, 0f);
+    }
+    
+    private void UpdateFightZonePosition()
+    {
+        FightZone.transform.localPosition = new Vector3(_currentPositionX, 0f, 0f);
+    }
+    
+    private void ClearSafeZones()
+    {
+        foreach (var safeZone in _safeZones)
+        {
+            Destroy(safeZone);
+        }
+        
+        _safeZones.Clear();
     }
     
     private RoadSide GetRandomSide()

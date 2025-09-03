@@ -4,18 +4,12 @@ namespace UI
 {
     public class KeyCell : MonoBehaviour
     {
-        private Key _key;
+        public Key Key { get; private set; }
 
         public void SetKey(Key key)
         {
-            _key = key;
-            _key.transform.SetParent(transform, false);
-        }
-
-        public void Destroy()
-        {
-            Destroy(_key);
-            Destroy(gameObject);
+            Key = key;
+            Key.transform.SetParent(transform, false);
         }
     }
 }

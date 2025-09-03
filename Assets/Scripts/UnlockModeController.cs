@@ -31,7 +31,6 @@ public class UnlockModeController : MonoBehaviour
     
     private void HandleGameStateChange(GameState newState)
     {
-        //Debug.Log("Unlock Mode " + newState);
         switch (newState)
         {
             case GameState.Unlock:
@@ -46,15 +45,8 @@ public class UnlockModeController : MonoBehaviour
 
     private void Generate()
     {
-        ResetUnlock();
-        
         var currentSessionColors = _colorManager.GetRandomColors(keysCountToUnlock, true);
         lockItem.Initialize(currentSessionColors);
         keyGrid.Initialize(currentSessionColors);
-    }
-
-    private void ResetUnlock()
-    {
-        keyGrid.ResetGrid();
     }
 }

@@ -21,6 +21,8 @@ namespace UI
         {
             _colorType = colorData.type;
             keyImage.color = colorData.color;
+            
+            gameObject.SetActive(true);
         }
         
         public void OnBeginDrag(PointerEventData eventData)
@@ -61,6 +63,7 @@ namespace UI
         public void Consume()
         {
             gameObject.SetActive(false);
+            ReturnToOriginalPosition();
         }
     }
 }

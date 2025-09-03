@@ -24,15 +24,14 @@ namespace UI
         {
             var totalKeysCount = gridSize * gridSize;
             var data = GenerateTotalColorData(requiredColors, totalKeysCount);
-
-            GenerateKeys(data);
-        }
-
-        public void ResetGrid()
-        {
-            foreach (var keyCell in _keyCells)
+            
+            if (_keyCells.Count > 0)
             {
-                Destroy(keyCell.gameObject);
+                ReinitializeKeys(data);
+            }
+            else
+            {
+                GenerateKeys(data);
             }
         }
 
@@ -77,6 +76,14 @@ namespace UI
                 keyCell.SetKey(key);
                 
                 _keyCells.Add(keyCell);
+            }
+        }
+
+        private void ReinitializeKeys(ColorData[] data)
+        {
+            for (var i = 0; i < data.Length; i++)
+            {
+                _keyCells[i].Key.Initialize(data[i]);
             }
         }
     }

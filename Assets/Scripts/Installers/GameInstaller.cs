@@ -7,10 +7,6 @@ namespace Installers
 {
     public class GameInstaller : MonoInstaller
     {
-        [Header("Controllers")]
-        //[SerializeField] private PlayerController playerController;
-        //[SerializeField] private FightModeController fightModeController;
-        
         [Header("Pools")]
         [SerializeField] private ObstaclePool obstaclePoolPrefab;
         [SerializeField] private BulletPool bulletPoolPrefab;
@@ -48,16 +44,6 @@ namespace Installers
                 .FromComponentInNewPrefab(levelGeneratorPrefab)
                 .AsSingle()
                 .NonLazy();
-            
-            // Container.Bind<PlayerController>()
-            //     .FromInstance(playerController)
-            //     .AsSingle()
-            //     .NonLazy();
-            //
-            // Container.Bind<FightModeController>()
-            //     .FromInstance(fightModeController)
-            //     .AsSingle()
-            //     .NonLazy();
         }
 
         private void PoolBindings()

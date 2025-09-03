@@ -1,4 +1,5 @@
-﻿using Enums;
+﻿using System;
+using Enums;
 using UnityEngine;
 using Zenject;
 
@@ -16,7 +17,7 @@ public class FightModeController : MonoBehaviour
         _gameStateManager.OnGameStateChanged += HandleGameStateChange;
         _levelGenerator.FightZone.OnFightWon += HandleFightWon;
     }
-    
+
     private void OnDestroy()
     {
         if (_gameStateManager != null)

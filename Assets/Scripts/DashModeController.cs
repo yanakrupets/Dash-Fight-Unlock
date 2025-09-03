@@ -29,6 +29,7 @@ public class DashModeController : MonoBehaviour
         switch (newState)
         {
             case GameState.Dash:
+                _levelGenerator.ResetLevel();
                 StartAllRoadsObstaclesMovement();
                 break;
             default:

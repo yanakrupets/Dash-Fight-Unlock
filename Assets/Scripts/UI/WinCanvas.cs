@@ -34,7 +34,6 @@ namespace UI
 
         private void HandleGameStateChange(GameState newState)
         {
-            //Debug.Log("Win Canvas " + newState);
             switch (newState)
             {
                 case GameState.Win:
@@ -48,7 +47,6 @@ namespace UI
 
         private void Restart()
         {
-            //_gameStateManager.SetState(GameState.Restart);
             _gameStateManager.RestartGame();
         }
     }
