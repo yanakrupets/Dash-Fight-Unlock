@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Enums;
 using Interfaces;
 using UnityEngine;
@@ -19,11 +20,14 @@ public class Road : MonoBehaviour
     private Vector3 _spawnPoint;
     private RoadSide _roadSide;
     private Coroutine _spawnCoroutine;
+    private List<Obstacle> _movingObstacles = new();
 
     [Inject]
     public void Construct(IPool<Obstacle> obstaclePool)
     {
         _obstaclePool = obstaclePool;
+
+        roadBound.OnTrigger += HandleBoundTrigger;
     }
     
     public class Factory : PlaceholderFactory<Road> { }
@@ -52,10 +56,24 @@ public class Road : MonoBehaviour
         _spawnCoroutine = null;
     }
 
+    public void ResetObstacles()
+    {
+        foreach (var obstacle in _movingObstacles)
+        {
+            _obstaclePool.Return(obstacle);
+        }
+        
+        _movingObstacles.Clear();
+    }
+
+    private void HandleBoundTrigger(Obstacle obstacle)
+    {
+        _obstaclePool.Return(obstacle);
+        _movingObstacles.Remove(obstacle);
+    }
+
     private IEnumerator SpawnRoutine()
     {
-        yield return new WaitForSeconds(GetRandomSpawnDelay());
-        
         while (true)
         {
             SpawnObstacle();
@@ -68,7 +86,12 @@ public class Road : MonoBehaviour
         var obstacle = _obstaclePool.Get();
         obstacle.transform.SetParent(transform);
         obstacle.transform.localPosition = _spawnPoint;
-        obstacle.Initialize(_roadSide, _speed);
+        obstacle.transform.localRotation = _roadSide == RoadSide.Left 
+            ? Quaternion.identity 
+            : Quaternion.Euler(0f, 180f, 0f);
+        obstacle.Initialize(_speed);
+        
+        _movingObstacles.Add(obstacle);
     }
     
     private float GetRandomSpawnDelay()

@@ -11,6 +11,7 @@ public class Damageable : MonoBehaviour
 
     private bool IsAlive => _currentHealthPoints > 0;
     public int HealthPoints => healthPoints;
+    public int CurrentHealthPoints => _currentHealthPoints;
     
     public void TakeDamage(int damage)
     {

@@ -50,6 +50,7 @@ MonoBehaviour:
   leftPoint: {x: 0, y: 1, z: -4}
   rightPoint: {x: 0, y: 1, z: 4}
   delayBetweenObstacles: {x: 1, y: 3}
+  _movingObstacles: []
 --- !u!1 &8729540411959180688
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 605b87f741ce43179df80b4cbf76db8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoadBound
+  road: {fileID: 4136832440375969793}
 --- !u!65 &4419589944823640476
 BoxCollider:
   m_ObjectHideFlags: 0

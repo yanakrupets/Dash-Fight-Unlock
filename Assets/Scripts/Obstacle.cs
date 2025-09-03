@@ -4,7 +4,6 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     private float _speed;
-    private RoadSide _moveDirection;
     private bool _isMoving;
 
     private void Update()
@@ -15,10 +14,9 @@ public class Obstacle : MonoBehaviour
         Move();
     }
 
-    public void Initialize(RoadSide moveDirection, float speed)
+    public void Initialize(float speed)
     {
         _speed = speed;
-        _moveDirection = moveDirection;
         _isMoving = true;
     }
     
@@ -30,8 +28,7 @@ public class Obstacle : MonoBehaviour
 
     private void Move()
     {
-        var direction = _moveDirection == RoadSide.Left ? 1f : -1f;
-        var movement = transform.forward * direction * _speed * Time.deltaTime;
+        var movement = transform.forward * _speed * Time.deltaTime;
         transform.Translate(movement, Space.World);
     }
 }

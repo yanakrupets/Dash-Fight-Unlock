@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50fa794d9d07430eaaace4891a1e5730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pools.ObstaclePool
-  prefab: {fileID: 2461798800546796623, guid: 7f53c9a58a1f76642af269f362cc1209, type: 3}
   obstaclePrefabs:
+  - {fileID: 2461798800546796623, guid: ca756a11a664c144b8e4d49bf1946022, type: 3}
   - {fileID: 2461798800546796623, guid: 7f53c9a58a1f76642af269f362cc1209, type: 3}
-  - {fileID: 9127325545740023994, guid: c9d4e7712dc3b7246a2dd58a0c3a2ec3, type: 3}
+  - {fileID: 2461798800546796623, guid: da4733a0c370d5544a1b7d52f15d14e8, type: 3}

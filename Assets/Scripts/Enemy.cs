@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
     {
         movement.Initialize(data);
         
-        movement.Enablemovement(true);
+        movement.EnableMovement(true);
         shooter.EnableShooting(true);
         
         damageable.ResetHealthPoints();
@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
 
     private void HandleDeath()
     {
-        movement.Enablemovement(false);
+        movement.EnableMovement(false);
         shooter.EnableShooting(false);
         
         OnDeath?.Invoke(this);
@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag(Consts.Bullet) && other.TryGetComponent<Bullet>(out var bullet))
         {
             damageable.TakeDamage(bullet.Damage);
-            healthBar.UpdateHealthBar(bullet.Damage);
+            healthBar.UpdateHealthBar(damageable.CurrentHealthPoints);
         }
     }
 }

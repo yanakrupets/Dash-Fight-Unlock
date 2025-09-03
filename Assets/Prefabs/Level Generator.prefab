@@ -47,6 +47,7 @@ MonoBehaviour:
   roadsCount: 3
   speedRange: {x: 3, y: 5}
   roadWidth: 1
+  offsetZ: 0.3
   safeZoneChance: 0.3
   safeZonePrefab: {fileID: 7544501920004293880, guid: 3ef1d0da80222b54aac231ed54bc2fbc, type: 3}
   fightZonePrefab: {fileID: 6505146679191647592, guid: 54ccc09dc570f8b48bfab3097ef735d4, type: 3}

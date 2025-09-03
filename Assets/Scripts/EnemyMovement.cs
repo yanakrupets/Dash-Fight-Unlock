@@ -29,7 +29,7 @@ public class EnemyMovement : MonoBehaviour
         _nextPosition = _pointB;
     }
     
-    public void Enablemovement(bool isMoving)
+    public void EnableMovement(bool isMoving)
     {
         _isMoving = isMoving;
     }

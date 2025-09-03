@@ -7,6 +7,9 @@ namespace UI
     public class HealthBar : MonoBehaviour
     {
         [SerializeField] private Image fillImage;
+
+        private const float HeightHealthBound = 0.6f;
+        private const float MediumHealthBound = 0.3f;
         
         private int _healthPoints;
         private int _currentHealthPoints;
@@ -21,10 +24,10 @@ namespace UI
             UpdateColor();
         }
 
-        public void UpdateHealthBar(int damage)
+        public void UpdateHealthBar(int currentHealthPoints)
         {
-            _currentHealthPoints = Mathf.Max(0, _currentHealthPoints - damage);
-        
+            _currentHealthPoints = currentHealthPoints;
+            
             var healthPercentage = (float)_currentHealthPoints / _healthPoints;
             fillImage.fillAmount = healthPercentage;
         
@@ -35,11 +38,11 @@ namespace UI
         {
             var healthPercentage = (float)_currentHealthPoints / _healthPoints;
         
-            if (healthPercentage > 0.6f)
+            if (healthPercentage > HeightHealthBound)
             {
                 fillImage.color = Color.green;
             }
-            else if (healthPercentage > 0.3f)
+            else if (healthPercentage > MediumHealthBound)
             {
                 fillImage.color = Color.yellow;
             }
